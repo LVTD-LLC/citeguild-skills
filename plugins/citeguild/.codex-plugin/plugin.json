@@ -21,6 +21,8 @@
     "websiteURL": "https://citeguild.lvtd.dev",
     "privacyPolicyURL": "https://citeguild.lvtd.dev/privacy-policy",
     "termsOfServiceURL": "https://citeguild.lvtd.dev/terms-of-service",
+    "composerIcon": "./assets/citeguild-logo.svg",
+    "logo": "./assets/citeguild-logo.svg",
     "defaultPrompt": [
       "Find CiteGuild sources relevant to this draft.",
       "Find editorial sources for this topic.",

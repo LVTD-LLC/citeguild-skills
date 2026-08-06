@@ -42,13 +42,18 @@ def main() -> None:
         "url": "https://citeguild.lvtd.dev/mcp/",
     }
 
+    logo = ROOT / "plugins/citeguild/assets/citeguild-logo.svg"
+    assert codex_plugin["interface"]["composerIcon"] == "./assets/citeguild-logo.svg"
+    assert codex_plugin["interface"]["logo"] == "./assets/citeguild-logo.svg"
+    assert logo.is_file()
+
     skill = ROOT / "plugins/citeguild/skills/find-editorial-citations/SKILL.md"
     skill_text = skill.read_text(encoding="utf-8")
     assert skill_text.startswith("---\nname: find-editorial-citations\n")
     assert "TODO" not in skill_text
     assert "guaranteed link" in skill_text
 
-    print("Validated CiteGuild plugin manifests, marketplace paths, MCP config, and skill.")
+    print("Validated CiteGuild plugin manifests, marketplace paths, logo, MCP config, and skill.")
 
 
 if __name__ == "__main__":
