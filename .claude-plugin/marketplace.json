@@ -10,7 +10,7 @@
       "name": "citeguild",
       "source": "./plugins/citeguild",
       "description": "Find relevant opted-in editorial sources in the CiteGuild member network.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "author": {
         "name": "LVTD LLC"
       },

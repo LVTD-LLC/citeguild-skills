@@ -1,6 +1,6 @@
 {
   "name": "citeguild",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Find relevant opted-in editorial sources in the CiteGuild member network.",
   "author": {
     "name": "LVTD LLC",
@@ -29,5 +29,5 @@
       "Review these citation candidates for relevance."
     ]
   },
-  "mcpServers": "./.mcp.json"
+  "mcpServers": "./.codex-mcp.json"
 }

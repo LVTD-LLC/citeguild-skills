@@ -21,6 +21,7 @@ def main() -> None:
         ROOT / ".claude-plugin/marketplace.json",
         ROOT / "plugins/citeguild/.codex-plugin/plugin.json",
         ROOT / "plugins/citeguild/.claude-plugin/plugin.json",
+        ROOT / "plugins/citeguild/.codex-mcp.json",
         ROOT / "plugins/citeguild/.mcp.json",
     ]
     documents = {path: load_json(path) for path in paths}
@@ -29,7 +30,8 @@ def main() -> None:
     claude_marketplace = documents[paths[1]]
     codex_plugin = documents[paths[2]]
     claude_plugin = documents[paths[3]]
-    mcp_config = documents[paths[4]]
+    codex_mcp_config = documents[paths[4]]
+    claude_mcp_config = documents[paths[5]]
 
     assert codex_marketplace["name"] == "citeguild-skills"
     assert claude_marketplace["name"] == "citeguild-skills"
@@ -37,7 +39,14 @@ def main() -> None:
     assert codex_plugin["version"] == claude_plugin["version"]
     assert codex_marketplace["plugins"][0]["source"]["path"] == "./plugins/citeguild"
     assert claude_marketplace["plugins"][0]["source"] == "./plugins/citeguild"
-    assert mcp_config["mcpServers"]["citeguild"] == {
+    assert codex_plugin["mcpServers"] == "./.codex-mcp.json"
+    assert claude_plugin["mcpServers"] == "./.mcp.json"
+    assert codex_mcp_config["mcpServers"]["citeguild"] == {
+        "type": "http",
+        "url": "https://citeguild.lvtd.dev/mcp/",
+        "bearer_token_env_var": "CITEGUILD_API_KEY",
+    }
+    assert claude_mcp_config["mcpServers"]["citeguild"] == {
         "type": "http",
         "url": "https://citeguild.lvtd.dev/mcp/",
     }
@@ -53,7 +62,7 @@ def main() -> None:
     assert "TODO" not in skill_text
     assert "guaranteed link" in skill_text
 
-    print("Validated CiteGuild plugin manifests, marketplace paths, logo, MCP config, and skill.")
+    print("Validated CiteGuild plugin manifests, marketplace paths, logo, MCP configs, and skill.")
 
 
 if __name__ == "__main__":

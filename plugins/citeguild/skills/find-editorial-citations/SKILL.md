@@ -28,7 +28,7 @@ Find sources that genuinely improve the user's work. Treat CiteGuild as a focuse
 
 ## Authentication and errors
 
-Use the MCP client's OAuth flow. If OAuth is unavailable, use a CiteGuild API key only from an environment variable; never hardcode, print, log, or commit it.
+In Codex, use the API key supplied through the `CITEGUILD_API_KEY` environment variable; the bundled MCP server reads it as a bearer token. In Claude Code and ChatGPT, use the MCP client's OAuth flow unless that client has been configured separately with an API key. Never hardcode, print, log, or commit a credential.
 
 If search reports that an active subscription is required, explain the requirement and stop. If the index is temporarily unavailable, preserve the query and suggest retrying rather than substituting invented results.
 
