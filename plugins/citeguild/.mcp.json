@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "citeguild": {
+      "type": "http",
+      "url": "https://citeguild.lvtd.dev/mcp/"
+    }
+  }
+}

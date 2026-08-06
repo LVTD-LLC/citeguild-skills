@@ -1,0 +1,20 @@
+{
+  "name": "citeguild-skills",
+  "interface": {
+    "displayName": "CiteGuild Skills"
+  },
+  "plugins": [
+    {
+      "name": "citeguild",
+      "source": {
+        "source": "local",
+        "path": "./plugins/citeguild"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Research"
+    }
+  ]
+}

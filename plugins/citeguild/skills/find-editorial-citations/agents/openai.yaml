@@ -1,0 +1,4 @@
+interface:
+  display_name: "Find Editorial Citations"
+  short_description: "Find relevant CiteGuild editorial sources"
+  default_prompt: "Find CiteGuild member articles relevant to this draft."

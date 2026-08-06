@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "name": "citeguild",
+  "version": "0.1.0",
+  "description": "Find relevant opted-in editorial sources in the CiteGuild member network.",
+  "author": {
+    "name": "LVTD LLC",
+    "url": "https://lvtd.dev"
+  },
+  "homepage": "https://citeguild.lvtd.dev",
+  "repository": "https://github.com/LVTD-LLC/citeguild-skills",
+  "license": "MIT",
+  "keywords": ["citations", "backlinks", "editorial-sources", "seo"],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
+}
