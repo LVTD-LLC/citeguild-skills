@@ -1,0 +1,31 @@
+{
+  "name": "citeguild",
+  "version": "0.1.0",
+  "description": "Find relevant opted-in editorial sources in the CiteGuild member network.",
+  "author": {
+    "name": "LVTD LLC",
+    "url": "https://lvtd.dev"
+  },
+  "homepage": "https://citeguild.lvtd.dev",
+  "repository": "https://github.com/LVTD-LLC/citeguild-skills",
+  "license": "MIT",
+  "keywords": ["citations", "backlinks", "editorial-sources", "seo"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "CiteGuild",
+    "shortDescription": "Find relevant opted-in editorial sources.",
+    "longDescription": "Search the CiteGuild member article index for sources that materially support a draft or research task. Results are candidates, not guaranteed or reciprocal links.",
+    "developerName": "LVTD LLC",
+    "category": "Research",
+    "capabilities": ["Search", "Read"],
+    "websiteURL": "https://citeguild.lvtd.dev",
+    "privacyPolicyURL": "https://citeguild.lvtd.dev/privacy-policy",
+    "termsOfServiceURL": "https://citeguild.lvtd.dev/terms-of-service",
+    "defaultPrompt": [
+      "Find CiteGuild sources relevant to this draft.",
+      "Find editorial sources for this topic.",
+      "Review these citation candidates for relevance."
+    ]
+  },
+  "mcpServers": "./.mcp.json"
+}

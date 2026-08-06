@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "citeguild-skills",
+  "description": "Official CiteGuild skills and plugins for editorial source discovery.",
+  "owner": {
+    "name": "LVTD LLC"
+  },
+  "plugins": [
+    {
+      "name": "citeguild",
+      "source": "./plugins/citeguild",
+      "description": "Find relevant opted-in editorial sources in the CiteGuild member network.",
+      "version": "0.1.0",
+      "author": {
+        "name": "LVTD LLC"
+      },
+      "homepage": "https://citeguild.lvtd.dev",
+      "repository": "https://github.com/LVTD-LLC/citeguild-skills",
+      "license": "MIT",
+      "keywords": ["citations", "backlinks", "editorial-sources", "seo"],
+      "category": "research"
+    }
+  ]
+}
