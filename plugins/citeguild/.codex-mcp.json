@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "citeguild": {
+      "type": "http",
+      "url": "https://citeguild.lvtd.dev/mcp/",
+      "bearer_token_env_var": "CITEGUILD_API_KEY"
+    }
+  }
+}

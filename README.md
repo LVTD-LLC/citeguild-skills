@@ -7,7 +7,7 @@ CiteGuild is an opted-in editorial source network for ethical citation and backl
 ## What is included
 
 - `find-editorial-citations`: finds relevant member articles and applies editorial-quality guardrails before suggesting a citation.
-- CiteGuild MCP connection: exposes `search_member_articles` and account information through CiteGuild's hosted, OAuth-enabled MCP server.
+- CiteGuild MCP connection: exposes `search_member_articles` and account information through CiteGuild's hosted MCP server, using `CITEGUILD_API_KEY` in Codex and OAuth in Claude Code/ChatGPT.
 - Native packaging for Claude Code and the ChatGPT/Codex plugin system.
 
 An active CiteGuild subscription is required to search the member index.
@@ -37,11 +37,11 @@ codex plugin marketplace add LVTD-LLC/citeguild-skills
 codex plugin add citeguild@citeguild-skills
 ```
 
-The same plugin is usable from supported ChatGPT and Codex plugin surfaces. Restart or open a new conversation after installation so the skill and MCP connection are loaded.
+The same plugin is usable from supported ChatGPT and Codex plugin surfaces. The Codex bundle reads a CiteGuild API key from `CITEGUILD_API_KEY`; the CiteGuild dashboard's protected Copy Prompt flow places the key in `~/.codex/.env`. Restart or open a new conversation after installation so the environment, skill, and MCP connection are loaded.
 
 ## Connect and use
 
-On the first CiteGuild tool call, complete the OAuth sign-in flow. Do not paste or commit a CiteGuild API key.
+In Codex, use the dashboard's Copy Prompt action to install the plugin and save the generated key as `CITEGUILD_API_KEY` without printing or committing it. In Claude Code and ChatGPT, complete the OAuth sign-in flow on the first CiteGuild tool call.
 
 Try prompts such as:
 
@@ -57,7 +57,8 @@ Try prompts such as:
 plugins/citeguild/
   .codex-plugin/plugin.json            ChatGPT/Codex plugin manifest
   .claude-plugin/plugin.json           Claude Code plugin manifest
-  .mcp.json                            Hosted CiteGuild MCP connection
+  .codex-mcp.json                      Codex API-key MCP connection
+  .mcp.json                            Claude Code OAuth MCP connection
   skills/find-editorial-citations/     Shared agent skill
 ```
 
