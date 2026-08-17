@@ -6,8 +6,9 @@ CiteGuild is an opted-in editorial source network for ethical citation and backl
 
 ## What is included
 
-- `find-editorial-citations`: finds relevant member articles and applies editorial-quality guardrails before suggesting a citation.
+- `find-editorial-citations`: finds relevant member articles through the CiteGuild CLI, hosted MCP tool, or versioned REST API, then applies editorial-quality guardrails before suggesting a citation.
 - CiteGuild MCP connection: exposes `search_member_articles` and account information through CiteGuild's hosted MCP server, using `CITEGUILD_API_KEY` in Codex and OAuth in Claude Code/ChatGPT.
+- Direct agent access: documents `citeguild search --json` for shell agents and `POST /api/v1/search` as the API fallback. All transports share the same v1 search contract.
 - Native packaging for Claude Code and the ChatGPT/Codex plugin system.
 
 An active CiteGuild subscription is required to search the member index.
@@ -42,6 +43,8 @@ The same plugin is usable from supported ChatGPT and Codex plugin surfaces. The 
 ## Connect and use
 
 In Codex, use the dashboard's Copy Prompt action to install the plugin and save the generated key as `CITEGUILD_API_KEY` without printing or committing it. In Claude Code and ChatGPT, complete the OAuth sign-in flow on the first CiteGuild tool call.
+
+OpenClaw, Hermes, shell agents, and scripts should prefer the released `citeguild` CLI when installed. Other clients can use the bundled MCP connection or call `POST https://citeguild.lvtd.dev/api/v1/search` with the API key as a Bearer or `X-API-Key` header. See the skill for the full request contract and secret-handling rules.
 
 Try prompts such as:
 

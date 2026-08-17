@@ -60,7 +60,10 @@ def main() -> None:
     skill_text = skill.read_text(encoding="utf-8")
     assert skill_text.startswith("---\nname: find-editorial-citations\n")
     assert "TODO" not in skill_text
-    assert "guaranteed link" in skill_text
+    assert "Never promise a backlink" in skill_text
+    assert "citeguild search --json" in skill_text
+    assert "POST https://citeguild.lvtd.dev/api/v1/search" in skill_text
+    assert "search_member_articles" in skill_text
 
     print("Validated CiteGuild plugin manifests, marketplace paths, logo, MCP configs, and skill.")
 

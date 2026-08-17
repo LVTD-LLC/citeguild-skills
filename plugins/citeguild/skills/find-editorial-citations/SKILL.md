@@ -1,6 +1,6 @@
 ---
 name: find-editorial-citations
-description: Search CiteGuild's opted-in member article index for relevant editorial citation candidates. Use when a user wants sources for a draft, article, research brief, or topic; wants to discover member content worth citing; or asks for ethical backlink opportunities through CiteGuild. Do not use for broad web search, independent fact verification, guaranteed link placement, or automatic reciprocal linking.
+description: Use when finding CiteGuild member articles for drafts, research, citations, or ethical backlink discovery via CLI, MCP, or REST API.
 ---
 
 # Find Editorial Citations
@@ -10,11 +10,64 @@ Find sources that genuinely improve the user's work. Treat CiteGuild as a focuse
 ## Workflow
 
 1. Extract a focused search query from the topic, passage, claim, or draft. Preserve the user's meaning and avoid sending confidential or unnecessary text.
-2. Ask for the user's own domain only when it cannot be inferred and excluding it materially matters. Pass known owned domains in `excluded_domains`.
-3. Call `search_member_articles` with the focused query. Start with 10 results; increase the limit or try one narrower query only when the first pass is insufficient.
-4. Rank candidates by direct topical and claim-level relevance. Prefer a smaller set of strong matches over filling a quota.
-5. Present each useful candidate with its title, URL, domain, and a short explanation of what it could support.
-6. If the user is drafting content, recommend a citation only when the source materially supports the surrounding claim. Inspect the article before representing its contents when the search result alone is insufficient.
+2. Ask for the user's own domain only when it cannot be inferred and excluding it materially matters. Pass known owned domains as exact values in `excluded_domains` or repeated `--exclude-domain` flags.
+3. Choose one available transport:
+   - For OpenClaw, Hermes, shell agents, or scripts, prefer the `citeguild` CLI when it is installed.
+   - In a client exposing CiteGuild MCP tools, call `search_member_articles`.
+   - Otherwise, call the versioned REST endpoint `POST https://citeguild.lvtd.dev/api/v1/search`.
+4. Start with 10 results. Increase the limit or try one narrower query only when the first pass is insufficient.
+5. Rank candidates by direct topical and claim-level relevance. Prefer a smaller set of strong matches over filling a quota.
+6. Present each useful candidate with its title, canonical URL, domain, and a short explanation of what it could support.
+7. If the user is drafting content, recommend a citation only when the source materially supports the surrounding claim. Inspect the article before representing its contents when the search result alone is insufficient.
+
+All three transports use the same v1 search contract: `query` is required; `limit` is 1–50; `language` is optional; and up to 20 exact excluded domains are allowed.
+
+## CLI
+
+Keep the key in `CITEGUILD_API_KEY`. Never pass it as a flag or place it in a URL or config file.
+
+Check configuration and authentication without revealing the key:
+
+```bash
+citeguild config status
+citeguild auth status
+```
+
+For agents and scripts, request stable JSON. Put options before the query:
+
+```bash
+citeguild search --json --limit 10 \
+  --language en \
+  --exclude-domain my-site.example \
+  "How do Django transaction commit hooks work?"
+```
+
+Use `--` before a query that begins with a hyphen. Diagnostics go to stderr. A JSON failure includes `code`, `message`, `retryable`, `exit_code`, and when available `request_id` and `retry_after_seconds`. Do not install or upgrade the CLI unless the user asks; use MCP or REST when the command is unavailable.
+
+## MCP
+
+Call `search_member_articles` with:
+
+- `query`: question, topic, claim, or draft passage
+- `limit`: 10 initially
+- `language`: optional language tag
+- `excluded_domains`: optional exact domains owned by the user
+
+Use `get_user_info` only when authentication or subscription state needs verification.
+
+## REST API
+
+Send the API key from `CITEGUILD_API_KEY` as either `Authorization: Bearer` or `X-API-Key`. Never put it in a query string.
+
+```bash
+curl --fail-with-body --silent --show-error \
+  https://citeguild.lvtd.dev/api/v1/search \
+  -H "Authorization: Bearer $CITEGUILD_API_KEY" \
+  -H "Content-Type: application/json" \
+  --data '{"query":"How do Django transaction commit hooks work?","limit":10,"language":"en","excluded_domains":["my-site.example"]}'
+```
+
+The success response contains `contract_version: "v1"` and `results`. Each result has `article_id`, `title`, `canonical_url`, `domain`, `excerpt`, `relevance`, `language`, and `last_seen_at`.
 
 ## Guardrails
 
@@ -28,9 +81,15 @@ Find sources that genuinely improve the user's work. Treat CiteGuild as a focuse
 
 ## Authentication and errors
 
-In Codex, use the API key supplied through the `CITEGUILD_API_KEY` environment variable; the bundled MCP server reads it as a bearer token. In Claude Code and ChatGPT, use the MCP client's OAuth flow unless that client has been configured separately with an API key. Never hardcode, print, log, or commit a credential.
+For CLI, REST, and API-key MCP access, use `CITEGUILD_API_KEY`. In Claude Code and ChatGPT, prefer the MCP client's OAuth flow unless the client is configured separately with an API key. Never hardcode, print, log, or commit a credential.
 
-If search reports that an active subscription is required, explain the requirement and stop. If the index is temporarily unavailable, preserve the query and suggest retrying rather than substituting invented results.
+Handle transport errors consistently:
+
+- `401`: the credential is missing, invalid, or revoked.
+- `403` with `subscription_required`: explain that an active subscription is required and stop.
+- `422`: correct the request contract.
+- `429`: honor `Retry-After` or `retry_after_seconds`.
+- `503`: preserve the query and suggest retrying rather than substituting invented results.
 
 ## Output
 
