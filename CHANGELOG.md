@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-09-29
+
+### Removed
+
+- Remove this repository's ReviewGate PR-review GitHub Actions workflow; retain application CI and deployment workflows.
+
+
 ## 0.2.0 - 2026-08-17
 
 - Document the released CiteGuild CLI as the preferred search transport for OpenClaw, Hermes, shell agents, and scripts.
