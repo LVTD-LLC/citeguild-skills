@@ -37,19 +37,26 @@ def main() -> None:
     assert claude_marketplace["name"] == "citeguild-skills"
     assert codex_plugin["name"] == claude_plugin["name"] == "citeguild"
     assert codex_plugin["version"] == claude_plugin["version"]
+    assert claude_marketplace["plugins"][0]["version"] == claude_plugin["version"]
     assert codex_marketplace["plugins"][0]["source"]["path"] == "./plugins/citeguild"
     assert claude_marketplace["plugins"][0]["source"] == "./plugins/citeguild"
     assert codex_plugin["mcpServers"] == "./.codex-mcp.json"
     assert claude_plugin["mcpServers"] == "./.mcp.json"
     assert codex_mcp_config["mcpServers"]["citeguild"] == {
         "type": "http",
-        "url": "https://citeguild.lvtd.dev/mcp/",
+        "url": "https://citeguild.com/mcp/",
         "bearer_token_env_var": "CITEGUILD_API_KEY",
     }
     assert claude_mcp_config["mcpServers"]["citeguild"] == {
         "type": "http",
-        "url": "https://citeguild.lvtd.dev/mcp/",
+        "url": "https://citeguild.com/mcp/",
     }
+
+    for manifest in (codex_plugin, claude_plugin, claude_marketplace["plugins"][0]):
+        assert manifest["homepage"] == "https://citeguild.com"
+    assert codex_plugin["interface"]["websiteURL"] == "https://citeguild.com"
+    assert codex_plugin["interface"]["privacyPolicyURL"] == "https://citeguild.com/privacy-policy"
+    assert codex_plugin["interface"]["termsOfServiceURL"] == "https://citeguild.com/terms-of-service"
 
     logo = ROOT / "plugins/citeguild/assets/citeguild-logo.svg"
     assert codex_plugin["interface"]["composerIcon"] == "./assets/citeguild-logo.svg"
@@ -62,8 +69,18 @@ def main() -> None:
     assert "TODO" not in skill_text
     assert "Never promise a backlink" in skill_text
     assert "citeguild search --json" in skill_text
-    assert "POST https://citeguild.lvtd.dev/api/v1/search" in skill_text
+    assert "POST https://citeguild.com/api/v1/search" in skill_text
     assert "search_member_articles" in skill_text
+
+    readme_text = (ROOT / "README.md").read_text(encoding="utf-8")
+    for text in (skill_text, readme_text):
+        assert "Membership is free and invitation-only" in text
+        assert "https://citeguild.com/AGENTS.md" in text
+        assert "https://citeguild.com/pricing" in text
+        assert "https://citeguild.lvtd.dev" not in text
+        assert "active subscription is required" not in text
+    assert "`403` with `account_inactive`" in skill_text
+    assert "`subscription_required`" not in skill_text
 
     print("Validated CiteGuild plugin manifests, marketplace paths, logo, MCP configs, and skill.")
 

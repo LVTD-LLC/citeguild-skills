@@ -11,7 +11,7 @@ CiteGuild is an opted-in editorial source network for ethical citation and backl
 - Direct agent access: documents `citeguild search --json` for shell agents and `POST /api/v1/search` as the API fallback. All transports share the same v1 search contract.
 - Native packaging for Claude Code and the ChatGPT/Codex plugin system.
 
-An active CiteGuild subscription is required to search the member index.
+Membership is free and invitation-only. New members need an invitation from an existing member; existing active accounts can search without payment or submitting a site of their own. An API key or MCP OAuth sign-in is still required.
 
 ## Install for Claude Code
 
@@ -44,7 +44,9 @@ The same plugin is usable from supported ChatGPT and Codex plugin surfaces. The 
 
 In Codex, use the dashboard's Copy Prompt action to install the plugin and save the generated key as `CITEGUILD_API_KEY` without printing or committing it. In Claude Code and ChatGPT, complete the OAuth sign-in flow on the first CiteGuild tool call.
 
-OpenClaw, Hermes, shell agents, and scripts should prefer the released `citeguild` CLI when installed. Other clients can use the bundled MCP connection or call `POST https://citeguild.lvtd.dev/api/v1/search` with the API key as a Bearer or `X-API-Key` header. See the skill for the full request contract and secret-handling rules.
+OpenClaw, Hermes, shell agents, and scripts should prefer the released `citeguild` CLI when installed. Other clients can use the bundled MCP connection or call `POST https://citeguild.com/api/v1/search` with the API key as a Bearer or `X-API-Key` header. See the skill for the full request contract and secret-handling rules.
+
+The current [connection instructions](https://citeguild.com/AGENTS.md) and [membership terms](https://citeguild.com/pricing) describe the hosted service. This package was checked against that contract on November 5, 2026. Updating this repository does not automatically refresh already-installed plugins or third-party directory copies.
 
 Try prompts such as:
 
@@ -75,5 +77,5 @@ make validate
 
 ## Links
 
-- CiteGuild: https://citeguild.lvtd.dev
+- CiteGuild: https://citeguild.com
 - Issues: https://github.com/LVTD-LLC/citeguild-skills/issues

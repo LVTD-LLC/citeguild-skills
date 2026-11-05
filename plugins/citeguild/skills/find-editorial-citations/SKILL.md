@@ -7,6 +7,8 @@ description: Use when finding CiteGuild member articles for drafts, research, ci
 
 Find sources that genuinely improve the user's work. Treat CiteGuild as a focused member corpus, not a replacement for a broad search engine.
 
+Membership is free and invitation-only. New members need an invitation from an existing member. An active account can search without payment or adding its own site; MCP OAuth or an API key is still required. Current service contract checked November 5, 2026: [connection instructions](https://citeguild.com/AGENTS.md) and [membership](https://citeguild.com/pricing).
+
 ## Workflow
 
 1. Extract a focused search query from the topic, passage, claim, or draft. Preserve the user's meaning and avoid sending confidential or unnecessary text.
@@ -14,7 +16,7 @@ Find sources that genuinely improve the user's work. Treat CiteGuild as a focuse
 3. Choose one available transport:
    - For OpenClaw, Hermes, shell agents, or scripts, prefer the `citeguild` CLI when it is installed.
    - In a client exposing CiteGuild MCP tools, call `search_member_articles`.
-   - Otherwise, call the versioned REST endpoint `POST https://citeguild.lvtd.dev/api/v1/search`.
+   - Otherwise, call the versioned REST endpoint `POST https://citeguild.com/api/v1/search`.
 4. Start with 10 results. Increase the limit or try one narrower query only when the first pass is insufficient.
 5. Rank candidates by direct topical and claim-level relevance. Prefer a smaller set of strong matches over filling a quota.
 6. Present each useful candidate with its title, canonical URL, domain, and a short explanation of what it could support.
@@ -53,7 +55,7 @@ Call `search_member_articles` with:
 - `language`: optional language tag
 - `excluded_domains`: optional exact domains owned by the user
 
-Use `get_user_info` only when authentication or subscription state needs verification.
+Use `get_user_info` only when authentication or active-account access needs verification.
 
 ## REST API
 
@@ -61,7 +63,7 @@ Send the API key from `CITEGUILD_API_KEY` as either `Authorization: Bearer` or `
 
 ```bash
 curl --fail-with-body --silent --show-error \
-  https://citeguild.lvtd.dev/api/v1/search \
+  https://citeguild.com/api/v1/search \
   -H "Authorization: Bearer $CITEGUILD_API_KEY" \
   -H "Content-Type: application/json" \
   --data '{"query":"How do Django transaction commit hooks work?","limit":10,"language":"en","excluded_domains":["my-site.example"]}'
@@ -86,7 +88,7 @@ For CLI, REST, and API-key MCP access, use `CITEGUILD_API_KEY`. In Claude Code a
 Handle transport errors consistently:
 
 - `401`: the credential is missing, invalid, or revoked.
-- `403` with `subscription_required`: explain that an active subscription is required and stop.
+- `403` with `account_inactive`: explain that active-account access is required and stop. Do not tell the user to buy a subscription.
 - `422`: correct the request contract.
 - `429`: honor `Retry-After` or `retry_after_seconds`.
 - `503`: preserve the query and suggest retrying rather than substituting invented results.

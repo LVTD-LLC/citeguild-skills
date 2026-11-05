@@ -10,11 +10,11 @@
       "name": "citeguild",
       "source": "./plugins/citeguild",
       "description": "Find relevant opted-in editorial sources in the CiteGuild member network.",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "author": {
         "name": "LVTD LLC"
       },
-      "homepage": "https://citeguild.lvtd.dev",
+      "homepage": "https://citeguild.com",
       "repository": "https://github.com/LVTD-LLC/citeguild-skills",
       "license": "MIT",
       "keywords": ["citations", "backlinks", "editorial-sources", "seo"],

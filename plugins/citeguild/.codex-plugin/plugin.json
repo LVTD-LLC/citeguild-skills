@@ -1,12 +1,12 @@
 {
   "name": "citeguild",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Find relevant opted-in editorial sources in the CiteGuild member network.",
   "author": {
     "name": "LVTD LLC",
     "url": "https://lvtd.dev"
   },
-  "homepage": "https://citeguild.lvtd.dev",
+  "homepage": "https://citeguild.com",
   "repository": "https://github.com/LVTD-LLC/citeguild-skills",
   "license": "MIT",
   "keywords": ["citations", "backlinks", "editorial-sources", "seo"],
@@ -18,9 +18,9 @@
     "developerName": "LVTD LLC",
     "category": "Research",
     "capabilities": ["Search", "Read"],
-    "websiteURL": "https://citeguild.lvtd.dev",
-    "privacyPolicyURL": "https://citeguild.lvtd.dev/privacy-policy",
-    "termsOfServiceURL": "https://citeguild.lvtd.dev/terms-of-service",
+    "websiteURL": "https://citeguild.com",
+    "privacyPolicyURL": "https://citeguild.com/privacy-policy",
+    "termsOfServiceURL": "https://citeguild.com/terms-of-service",
     "composerIcon": "./assets/citeguild-logo.svg",
     "logo": "./assets/citeguild-logo.svg",
     "defaultPrompt": [
