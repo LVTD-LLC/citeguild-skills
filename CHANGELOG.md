@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-05
+
+### Fixed
+
+- Point official MCP configurations, REST examples, marketplace metadata, and policy links at the current `https://citeguild.com` origin.
+- Replace the retired paid-subscription requirement with free, invitation-only membership and the current `account_inactive` access error; retain API-key/OAuth authentication and relevance-first safeguards.
+- Release plugin metadata version 0.2.1 and validate matching versions, current service URLs, and membership guidance. Existing installations and third-party copies are not automatically updated.
+
 ## 2026-09-29
 
 ### Removed
